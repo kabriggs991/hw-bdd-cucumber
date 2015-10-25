@@ -2,7 +2,7 @@
 
 Given /the following movies exist/ do |movies_table|
   movies_table.hashes.each do |movie|
-    Movie.create!(movie)
+    Movie.create(movie)
     # each returned element will be a hash whose key is the table header.
     # you should arrange to add that movie to the database here.
   end
@@ -15,7 +15,8 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  fail "Unimplemented"
+  match = page.body.index(/#{e1}/) <= page.body.index(/#{e2}/)
+  match.should be true
 end
 
 # Make it easier to express checking or unchecking several boxes at once
